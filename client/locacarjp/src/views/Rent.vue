@@ -95,7 +95,29 @@
         </material-card>
       </v-flex>
     </v-layout>
+    <v-snackbar
+              :color="color"
+              :top="true"
+              :right="true"
+              v-model="snackbar"
+              dark
+            >
+              <v-icon
+                color="white"
+                class="mr-3"
+              >
+                mdi-bell-plus
+              </v-icon>
+              <div>{{msg}}</div>
+              <v-icon
+                size="16"
+                @click="snackbar = false"
+              >
+                mdi-close-circle
+              </v-icon>
+   </v-snackbar>
   </v-container>
+  
 </template>
 
 <script>
@@ -130,6 +152,8 @@ export default {
         align: 'right'
       }
     ],
+    msg: '',
+    snackbar: false,
     rents: [],
     reserves:[]
   }),
@@ -144,6 +168,16 @@ export default {
     }
   },
   methods: {
+    snack (...args) {
+
+      for (const loc of args) {
+        this[loc] = true
+      }
+
+      this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
+
+      this.snackbar = true
+    },
     getItens(page) {
       send
         .request("get", "rents?"+"page="+ page)
