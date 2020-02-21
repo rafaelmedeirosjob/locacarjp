@@ -29,7 +29,7 @@
             />
           </v-list-tile-avatar>
           <v-list-tile-title class="title">
-            LOCACARJP
+            RENTCARJP
           </v-list-tile-title>
         </v-list-tile>
         <v-divider/>
@@ -48,6 +48,19 @@
             v-text="link.text"
           />
         </v-list-tile>
+        <div align="center" >
+                <v-btn
+                  color="indigo"
+                  class="mr-2 v-btn-facebook"
+                  fab
+                  icon
+                  small
+                  round
+                  @click="onClickLkdn"
+                >
+                  <v-icon>mdi-linkedin</v-icon>
+                </v-btn>
+              </div>
       </v-layout>
     </v-img>
   </v-navigation-drawer>
@@ -103,7 +116,10 @@ export default {
   },
 
   methods: {
-    ...mapMutations('app', ['setDrawer', 'toggleDrawer'])
+    ...mapMutations('app', ['setDrawer', 'toggleDrawer']),
+    onClickLkdn () {
+      window.open("https://www.linkedin.com/in/rafael-medeiros-pb/")
+    }
   }
 }
 </script>

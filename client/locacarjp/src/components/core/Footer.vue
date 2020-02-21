@@ -20,7 +20,7 @@
       {{ (new Date()).getFullYear() }}
       <a
         href="https://www.creative-tim.com/"
-        target="_blank">LocaCarJP</a>, made with
+        target="_blank">RENTCARJP</a>, made with
       <v-icon
         color="tertiary"
         size="17">mdi-heart</v-icon>
@@ -34,7 +34,7 @@ export default {
   data: () => ({
     links: [
       { name: 'Home', Link: '/#' },
-      { name: 'LocaCarJP', Link: 'https://www.creative-tim.com' },
+      { name: 'RENTCARJP', Link: 'https://www.creative-tim.com' },
       { name: 'About Us', Link: 'https://creative-tim.com/presentation' },
       { name: 'Blog', Link: 'https://blog.creative-tim.com' }
     ]

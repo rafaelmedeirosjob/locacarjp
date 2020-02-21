@@ -15,9 +15,11 @@ public class CreateRentRequest {
 
 	//Rent
 	@NotNull @NotEmpty
-	private LocalDateTime rentalDate;
+	private String rentalDate;
 	@NotNull @NotEmpty
-	private LocalDateTime rentalDue;
+	private String rentalDue;
+	@NotNull @NotEmpty
+	private String value;
 	
 	//Client
 	@NotNull @NotEmpty
@@ -29,7 +31,7 @@ public class CreateRentRequest {
 	@NotNull @NotEmpty
 	private String street;
 	@NotNull @NotEmpty
-	private int number;
+	private String number;
 	@NotNull @NotEmpty
 	private String city;
 	
@@ -38,8 +40,8 @@ public class CreateRentRequest {
 	private String model;
 	@NotNull @NotEmpty
 	private String vehiclePlate;
-	@NotNull @NotEmpty
-	private double km;
+	@NotNull @NotEmpty 
+	private String km;
 	
 	//Type
 	@NotNull @NotEmpty

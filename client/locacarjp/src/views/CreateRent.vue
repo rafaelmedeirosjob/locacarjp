@@ -13,8 +13,8 @@
       >
         <material-card
           color="green"
-          title="Edit Profile"
-          text="Complete your profile"
+          title="Aluguel"
+          text="Preencha todas as informações"
         >
           <v-form>
             <v-container py-0>

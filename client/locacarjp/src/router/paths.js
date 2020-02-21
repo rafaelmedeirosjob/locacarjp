@@ -9,8 +9,9 @@ export default [
     view: 'Rent'
   },
   {
-    path: '/typography',
-    view: 'Typography'
+    path: '/create-rent',
+    name: "Criação do aluguél",
+    view: 'CreateRent'
   },
   {
     path: '/icons',
@@ -23,10 +24,5 @@ export default [
   {
     path: '/notifications',
     view: 'Notifications'
-  },
-  {
-    path: '/upgrade',
-    name: 'Upgrade to PRO',
-    view: 'Upgrade'
   }
 ]

@@ -25,15 +25,17 @@ public class Rent {
 	private LocalDateTime rentalDate;
 	private LocalDateTime rentalDue;
 	private LocalDateTime returnDate = null;
+	private double value;
 	private boolean isCanceled = false;
 	@ManyToOne
 	private Client client;
 	@ManyToOne
 	private Car car;
-	public Rent(LocalDateTime rentalDate, LocalDateTime rentalDue, Client client, Car car) {
+	public Rent(LocalDateTime rentalDate, LocalDateTime rentalDue,double value, Client client, Car car) {
 		super();
 		this.rentalDate = rentalDate;
 		this.rentalDue = rentalDue;
+		this.value=value;
 		this.client = client;
 		this.car = car;
 	}

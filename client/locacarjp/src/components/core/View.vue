@@ -13,7 +13,7 @@
 export default {
   metaInfo () {
     return {
-      title: 'LocaCarJP'
+      title: 'RENTCARJP'
     }
   }
 }

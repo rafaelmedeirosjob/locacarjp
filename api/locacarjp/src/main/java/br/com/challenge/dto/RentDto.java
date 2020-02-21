@@ -16,6 +16,7 @@ public class RentDto {
 	private LocalDateTime rentalDate;
 	private LocalDateTime rentalDue;
 	private LocalDateTime returnDate;
+	private double value;
 	private ClientDto client;
 	private CarDto car;
 	
@@ -28,6 +29,7 @@ public class RentDto {
 		this.id = rent.getId();
 		this.rentalDate = rent.getRentalDate();
 		this.rentalDue = rent.getRentalDue();
+		this.value = rent.getValue();
 		this.client = new ClientDto(rent.getClient()); 
 		this.car = new CarDto(rent.getCar());
 	}

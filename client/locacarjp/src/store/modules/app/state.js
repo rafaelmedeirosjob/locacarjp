@@ -1,5 +1,5 @@
 export default {
   drawer: null,
   color: 'success',
-  image: 'https://demos.creative-tim.com/vue-material-dashboard/img/sidebar-2.32103624.jpg'
+  image: 'https://af7consultoria.com.br/wp-content/uploads/2018/01/Locadora-de-ve%C3%ADculos.jpg'
 }

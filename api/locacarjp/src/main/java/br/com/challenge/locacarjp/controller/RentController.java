@@ -2,6 +2,7 @@ package br.com.challenge.locacarjp.controller;
 
 import java.net.URI;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,25 +51,27 @@ public class RentController {
 	@Autowired
 	private ClientRepository clientRepository;
 
-	//usando paginação
+	@CrossOrigin(origins = "http://localhost:8081")
 	@GetMapping
 	public ResponseEntity<Page<RentDto>> list(@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
 		Page<Rent> rents = rentRepository.findAll(paginacao);
 			return ResponseEntity.ok().body(RentDto.converter(rents));
 	}
-	
 	@PostMapping
 	@Transactional
 	public ResponseEntity<RentDto> create(@RequestBody @Valid CreateRentRequest request, UriComponentsBuilder uriBuilder) {
-		Address address = new Address(request.getStreet(),request.getNumber(), request.getCity());
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		LocalDateTime dateRent = LocalDateTime.parse(request.getRentalDate(), formatter);
+		LocalDateTime dateDue = LocalDateTime.parse(request.getRentalDue(), formatter);
+		Address address = new Address(request.getStreet(),Integer.parseInt(request.getNumber()), request.getCity());
 		addressRepository.save(address);
-		Client client = new Client(request.getNameClient(),request.getCpf(), address);
+		Client client = new Client(request.getCpf(),request.getNameClient(),address);
 		clientRepository.save(client);
 		Type type = new Type(request.getFuel(), request.getType(), request.getMotorPower(), request.getExchange(), request.getDoor(), request.getColor());
 		typeRepository.save(type);
-		Car car = new Car(request.getModel(), request.getVehiclePlate(),request.getKm(),type);
+		Car car = new Car(request.getModel(), request.getVehiclePlate(),Double.parseDouble(request.getKm()),type);
 		carRepository.save(car);
-		Rent rent = new Rent(request.getRentalDate(),request.getRentalDue(),client,car);
+		Rent rent = new Rent(dateRent,dateDue,Double.parseDouble(request.getValue()),client,car);
 		rentRepository.save(rent);
 		URI uri = uriBuilder.path("/rents/{id}").buildAndExpand(rent.getId()).toUri();
 		return ResponseEntity.created(uri).body(new RentDto(rent));
