@@ -34,9 +34,9 @@
               slot-scope="{ item }"
             >
               <td>{{ item.client.name }}</td>
-              <td>{{ item.rentalDate }}</td>
-              <td>{{ item.rentalDue }}</td>
-              <td >{{ item.value }}</td>
+              <td>{{ item.rentalDate | formatDate}}</td>
+              <td>{{ item.rentalDue | formatDate}}</td>
+              <td >R$ {{ item.value }}</td>
               <td class="text-xs-right">
                 <v-btn
                     class="mx-0 font-weight-light"
@@ -78,9 +78,9 @@
               slot-scope="{ item }"
             >
               <td>{{ item.client.name }}</td>
-              <td>{{ item.rentalDate }}</td>
-              <td>{{ item.rentalDue }}</td>
-              <td >{{ item.value }}</td>
+              <td>{{ item.rentalDate | formatDate}}</td>
+              <td>{{ item.rentalDue | formatDate}}</td>
+              <td >R$ {{ item.value }}</td>
               <td class="text-xs-right">
                 <v-btn
                     class="mx-0 font-weight-light"
@@ -136,6 +136,12 @@ export default {
   created() {
     this.getItens(0)
     this.getReserves(0)
+  },
+  filters: {
+    formatDate: function(value) {
+      if (!value) return ""
+      return moment(String(value)).format("DD/MM/YYYY HH:ss")
+    }
   },
   methods: {
     getItens(page) {

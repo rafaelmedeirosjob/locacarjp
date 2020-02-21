@@ -48,6 +48,7 @@
                           v-model="model.cpf"
                           class="purple-input"
                           label="CPF"
+                          v-mask="['###.###.###-##']"
                         />
                       </v-flex>
                       <v-flex
@@ -108,7 +109,8 @@
                 >
                   <v-text-field :rules="rules.required"
                     v-model="model.vehiclePlate"
-                    label="PLACA"/>
+                    label="PLACA"
+                    v-mask="['AAA-####']"/>
                 </v-flex>
                 <v-flex
                   xs12
@@ -210,26 +212,27 @@
                 >
                   <v-text-field :rules="rules.required"
                   v-model="model.rentalDate"
+                  v-mask="['##/##/#### ##:##']"
                     label="Data de aluguel"/>
                 </v-flex>
                 <v-flex
                   xs12
                   md4
                 >
-                  <v-text-field :rules="rules.required"
+                <v-text-field :rules="rules.required"
                   v-model="model.rentalDue"
-                    class="purple-input"
                     label="Data de entrega"
-                  />
+                    v-mask="['##/##/#### ##:##']"
+                    />
+                
                 </v-flex>
                 <v-flex
                   xs12
-                  md4
+                  md6
                 >
-                  <v-text-field :rules="rules.required"
-                  v-model="model.value"
-                    label="Valor"
-                    class="purple-input"/>
+                    <money v-model="model.value"
+                        v-bind="money" class="purple-input"></money>
+                    
                 </v-flex>
                 <v-flex
                   xs12
@@ -271,6 +274,13 @@ export default {
         BadgerAccordionItem
     },
     data: () => ({
+      money: {
+        decimal: ",",
+        thousands: ".",
+        prefix: "R$ ",
+        precision: 2,
+        masked: false
+      },
       valid: true,
       rules: {
        required: [value => !!value || " Campo obrigatório."]
@@ -279,7 +289,7 @@ export default {
     {
       rentalDate: '',
       rentalDue: '',
-      value: '',
+      value: 0,
       nameClient: '',
       cpf: '',
       street: '',

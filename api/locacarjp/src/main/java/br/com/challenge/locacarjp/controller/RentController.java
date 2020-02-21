@@ -72,7 +72,7 @@ public class RentController {
 	@PostMapping
 	@Transactional
 	public ResponseEntity<RentDto> create(@RequestBody @Valid CreateRentRequest request, UriComponentsBuilder uriBuilder) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		LocalDateTime dateRent = LocalDateTime.parse(request.getRentalDate(), formatter);
 		LocalDateTime dateDue = LocalDateTime.parse(request.getRentalDue(), formatter);
 		Address address = new Address(request.getStreet(),Integer.parseInt(request.getNumber()), request.getCity());

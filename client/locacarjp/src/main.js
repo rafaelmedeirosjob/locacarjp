@@ -14,8 +14,10 @@ import store from '@/store'
 import VueTheMask from 'vue-the-mask'
 import money from 'v-money'
 import moment from 'moment'
+import DatetimePicker from 'vuetify-datetime-picker'
 // Sync store with router
 sync(store, router)
+Vue.use(DatetimePicker)
 Vue.use(moment)
 Vue.use(money, { precision: 4 })
 Vue.use(VueTheMask)
