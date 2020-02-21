@@ -91,7 +91,7 @@ export default {
       {
         to: '/alugueis',
         icon: 'mdi-car-connected',
-        text: 'Alugueis'
+        text: 'Aluguéis'
       },
       {
         to: '/maps',

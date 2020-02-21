@@ -1708,6 +1708,11 @@ babylon@7.0.0-beta.47:
   resolved "https://registry.yarnpkg.com/babylon/-/babylon-7.0.0-beta.47.tgz#6d1fa44f0abec41ab7c780481e62fd9aafbdea80"
   integrity sha512-+rq2cr4GDhtToEzKFD6KZZMDBXhjFAr9JjPw9pAppZACeEWqNM294j+NdBzkSHYXwzzBmVjZ3nEVJlOhbR2gOQ==
 
+badger-accordion@^1.2.2:
+  version "1.2.4"
+  resolved "https://registry.yarnpkg.com/badger-accordion/-/badger-accordion-1.2.4.tgz#0d3dca51c040684acd7c52818efa0aefaf89262e"
+  integrity sha512-bWiUY6Y66Ghc7Wxg1lELIGQtB2+G/2qXDoO5k86wBYb56qV8CpQ9J9IeslZgU3bu+1unJ1BOscRX1bltV65HuA==
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/balanced-match/-/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -8533,6 +8538,14 @@ vue-analytics@5.8.0:
   resolved "https://registry.yarnpkg.com/vue-analytics/-/vue-analytics-5.8.0.tgz#0df9ce8e6f52f32f1fef597af9debcd2674eea91"
   integrity sha1-DfnOjm9S8y8f71l6+d680mdO6pE=
 
+vue-badger-accordion@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/vue-badger-accordion/-/vue-badger-accordion-1.1.6.tgz#a525954666dc7f3f5c20aacd60558ec42f20da2b"
+  integrity sha512-zdsRrZBuHonhF1z25lqSxGg/2FAFnNhifZFCTcjsmBKbRuoai0IpWQLSl77Em/TqtFmBZNIID+puCSwJraFMTg==
+  dependencies:
+    badger-accordion "^1.2.2"
+    vue "^2.5.17"
+
 vue-chartist@2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/vue-chartist/-/vue-chartist-2.1.2.tgz#1a0ca5d516a9de7b51bf8290daaf7a57e4f493dc"
@@ -8625,7 +8638,7 @@ vue@2.5.22:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.22.tgz#3bf88041af08b8539c37b268b70ca79245e9cc30"
   integrity sha512-pxY3ZHlXNJMFQbkjEgGVMaMMkSV1ONpz+4qB55kZuJzyJOhn6MSy/YZdzhdnumegNzVTL/Dn3Pp4UrVBYt1j/g==
 
-vue@^2.0.1, vue@^2.6.10:
+vue@^2.0.1, vue@^2.5.17, vue@^2.6.10:
   version "2.6.11"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.11.tgz#76594d877d4b12234406e84e35275c6d514125c5"
   integrity sha512-VfPwgcGABbGAue9+sfrD4PuwFar7gPb1yl1UK1MwXoQPAw0BKSqWfoYCT/ThFrdEVWoI51dBuyCoiNU9bZDZxQ==

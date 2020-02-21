@@ -13,7 +13,7 @@
       >
         <material-card
           color="green"
-          title="Alugueis em andamento"
+          title="Aluguéis"
         >
           <v-data-table
             :headers="headers"
@@ -36,7 +36,16 @@
               <td>{{ item.client.name }}</td>
               <td>{{ item.rentalDate }}</td>
               <td>{{ item.rentalDue }}</td>
-              <td class="text-xs-right">{{ item.value }}</td>
+              <td >{{ item.value }}</td>
+              <td class="text-xs-right">
+                <v-btn
+                    class="mx-0 font-weight-light"
+                    color="success"
+                    @click="devolutionRent(item)"
+                  >
+                    Devolução
+                  </v-btn>
+              </td>
             </template>
           </v-data-table>
         </material-card>
@@ -52,7 +61,7 @@
         >
           <v-data-table
             :headers="headers"
-            :items="rents"
+            :items="reserves"
             hide-actions
           >
             <template
@@ -71,7 +80,16 @@
               <td>{{ item.client.name }}</td>
               <td>{{ item.rentalDate }}</td>
               <td>{{ item.rentalDue }}</td>
-              <td class="text-xs-right">{{ item.value }}</td>
+              <td >{{ item.value }}</td>
+              <td class="text-xs-right">
+                <v-btn
+                    class="mx-0 font-weight-light"
+                    color="success"
+                    @click="cancelReserve(item)"
+                  >
+                    Cancelar
+                  </v-btn>
+              </td>
             </template>
           </v-data-table>
         </material-card>
@@ -104,7 +122,11 @@ export default {
       {
         sortable: true,
         text: 'Valor',
-        value: 'value',
+        value: 'value'
+      },
+      {
+        sortable: false,
+        text: 'Ações',
         align: 'right'
       }
     ],
@@ -112,16 +134,57 @@ export default {
     reserves:[]
   }),
   created() {
-    this.getItens(1)
+    this.getItens(0)
+    this.getReserves(0)
   },
   methods: {
     getItens(page) {
       send
-        .request("get", "rents")
+        .request("get", "rents?"+"page="+ page)
         .then(response => {
           
           this.rents = response.data.content;
           console.log(this.rents)
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+    getReserves(page) {
+      send
+        .request("get", "rents/reserves?"+"page="+ page)
+        .then(response => {
+          
+          this.reserves = response.data.content;
+          console.log(this.reserves)
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+    cancelReserve(row) {
+      send
+        .request("put", "rents/cancelled/"+row.id)
+        .then(response => {
+          this.$router.push({
+              path: "/alugueis"
+            });
+            this.getReserves(0)
+          console.log(response.data)
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+    devolutionRent(row) {
+      send
+        .request("put", "rents/devolution/"+row.id)
+        .then(response => {
+          this.$router.push({
+              path: "/alugueis"
+            });
+            this.getItens(0)
+          console.log(response.data)
         })
         .catch(error => {
           console.log(error)

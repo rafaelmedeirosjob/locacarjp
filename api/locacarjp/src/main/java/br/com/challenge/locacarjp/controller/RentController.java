@@ -3,6 +3,7 @@ package br.com.challenge.locacarjp.controller;
 import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -53,10 +54,21 @@ public class RentController {
 
 	@CrossOrigin(origins = "http://localhost:8081")
 	@GetMapping
-	public ResponseEntity<Page<RentDto>> list(@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
-		Page<Rent> rents = rentRepository.findAll(paginacao);
+	public ResponseEntity<Page<RentDto>> rents(@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+		LocalDateTime lt = LocalDateTime.now(); 
+		Page<Rent> rents = rentRepository.findByRentalDateBeforeAndIsCanceledFalseAndReturnDateIsNull(lt,paginacao);
 			return ResponseEntity.ok().body(RentDto.converter(rents));
 	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@GetMapping("reserves")
+	public ResponseEntity<Page<RentDto>> reserves(@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+		LocalDateTime lt = LocalDateTime.now(); 
+		Page<Rent> rents = rentRepository.findByRentalDateAfterAndIsCanceledFalse(lt,paginacao);
+			return ResponseEntity.ok().body(RentDto.converter(rents));
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
 	@PostMapping
 	@Transactional
 	public ResponseEntity<RentDto> create(@RequestBody @Valid CreateRentRequest request, UriComponentsBuilder uriBuilder) {
@@ -76,7 +88,7 @@ public class RentController {
 		URI uri = uriBuilder.path("/rents/{id}").buildAndExpand(rent.getId()).toUri();
 		return ResponseEntity.created(uri).body(new RentDto(rent));
 	}
-	
+	@CrossOrigin(origins = "http://localhost:8081")
 	@PutMapping("cancelled/{id}")
 	@Transactional
 	public ResponseEntity<String> cancel(@PathVariable Long id){
@@ -88,7 +100,7 @@ public class RentController {
 		}
 		return ResponseEntity.notFound().build();	
 	}
-	
+	@CrossOrigin(origins = "http://localhost:8081")
 	@PutMapping("devolution/{id}")
 	@Transactional
 	public ResponseEntity<String> devolution(@PathVariable Long id){

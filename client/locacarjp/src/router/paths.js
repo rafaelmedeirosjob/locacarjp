@@ -10,7 +10,7 @@ export default [
   },
   {
     path: '/create-rent',
-    name: "Criação do aluguél",
+    name: "Criação do aluguel",
     view: 'CreateRent'
   },
   {
