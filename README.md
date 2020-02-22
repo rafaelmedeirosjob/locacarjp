@@ -5,7 +5,7 @@ Tecnologias : VueJS e Java Spring boot
 
 Para executar a aplicação da API, necessário apenas configurar sua senha do postgres localmente, no arquivo: application.properties.
 
-Para executar o client, necessário apenas executar o comando:
+Para o client, necessário apenas ir na pasta raiz do projeto e no terminal executar o comando:
 # yarn install
 e depois:
 # yarn vue-cli-service serve
