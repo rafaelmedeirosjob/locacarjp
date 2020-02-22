@@ -16,7 +16,7 @@
           color="info"
           type="Line"
         >
-          <h4 class="title font-weight-light">Daily Sales</h4>
+          <h4 class="title font-weight-light">Alguéis semanalmente</h4>
           <p class="category d-inline-flex font-weight-light">
             <v-icon
               color="green"
@@ -25,7 +25,7 @@
               mdi-arrow-up
             </v-icon>
             <span class="green--text">55%</span>&nbsp;
-            increase in today's sales
+            aumento no total de aluguéis
           </p>
 
           <template slot="actions">
@@ -35,7 +35,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 4 minutes ago</span>
+            <span class="caption grey--text font-weight-light">Atualizado a 2 horas atrás</span>
           </template>
         </material-chart-card>
       </v-flex>
@@ -51,8 +51,8 @@
           color="red"
           type="Bar"
         >
-          <h4 class="title font-weight-light">Email Subscription</h4>
-          <p class="category d-inline-flex font-weight-light">Last Campaign Performance</p>
+          <h4 class="title font-weight-light">Aluguéis mensalmente</h4>
+          <p class="category d-inline-flex font-weight-light">2019</p>
 
           <template slot="actions">
             <v-icon
@@ -61,7 +61,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">updated 10 minutes ago</span>
+            <span class="caption grey--text font-weight-light">Atualizado a 2 horas atrás</span>
           </template>
         </material-chart-card>
       </v-flex>
@@ -76,8 +76,8 @@
           color="green"
           type="Line"
         >
-          <h3 class="title font-weight-light">Completed Tasks</h3>
-          <p class="category d-inline-flex font-weight-light">Last Last Campaign Performance</p>
+          <h3 class="title font-weight-light">Horários de devolução</h3>
+          <p class="category d-inline-flex font-weight-light">2019</p>
 
           <template slot="actions">
             <v-icon
@@ -86,7 +86,7 @@
             >
               mdi-clock-outline
             </v-icon>
-            <span class="caption grey--text font-weight-light">campaign sent 26 minutes ago</span>
+            <span class="caption grey--text font-weight-light">Atualizado a 2 horas atrás</span>
           </template>
         </material-chart-card>
       </v-flex>
@@ -98,9 +98,9 @@
       >
         <material-stats-card
           color="green"
-          icon="mdi-store"
-          title="Revenue"
-          value="$34,245"
+          icon="mdi-alarm-snooze"
+          title="Reservas"
+          value="3"
           sub-icon="mdi-calendar"
           sub-text="Last 24 Hours"
         />
@@ -113,14 +113,11 @@
       >
         <material-stats-card
           color="orange"
-          icon="mdi-content-copy"
-          title="Used Space"
-          value="49/50"
-          small-value="GB"
-          sub-icon="mdi-alert"
-          sub-icon-color="error"
-          sub-text="Get More Space..."
-          sub-text-color="text-primary"
+          icon="mdi-account-heart"
+          title="Aluguéis"
+          value="0"
+          sub-icon="mdi-calendar"
+          sub-text="Last 24 Hours"
         />
       </v-flex>
       <v-flex
@@ -131,11 +128,11 @@
       >
         <material-stats-card
           color="red"
-          icon="mdi-information-outline"
-          title="Fixed Issues"
-          value="75"
-          sub-icon="mdi-tag"
-          sub-text="Tracked from Github"
+          icon="mdi-account-off"
+          title="Cancelados"
+          value="5"
+          sub-icon="mdi-calendar"
+          sub-text="Last 24 Hours"
         />
       </v-flex>
       <v-flex
@@ -146,11 +143,11 @@
       >
         <material-stats-card
           color="info"
-          icon="mdi-twitter"
-          title="Followers"
-          value="+245"
-          sub-icon="mdi-update"
-          sub-text="Just Updated"
+          icon="mdi-arrow-bottom-left-thick"
+          title="Devolvidos"
+          value="1"
+          sub-icon="mdi-calendar"
+          sub-text="Last 24 Hours"
         />
       </v-flex>
       <v-flex
@@ -158,13 +155,13 @@
         lg6
       >
         <material-card
-          color="orange"
-          title="Employee Stats"
-          text="New employees on 15th September, 2016"
+          color="info"
+          title="Devoluções"
+          text="carros a serem devolvidos nos próximos 7 dias"
         >
           <v-data-table
             :headers="headers"
-            :items="items"
+            :items="devolutions"
             hide-actions
           >
             <template
@@ -172,7 +169,7 @@
               slot-scope="{ header }"
             >
               <span
-                class="font-weight-light text-warning text--darken-3"
+                class="font-weight-light text-sucess text--darken-3"
                 v-text="header.text"
               />
             </template>
@@ -180,11 +177,10 @@
               slot="items"
               slot-scope="{ index, item }"
             >
-              <td>{{ index + 1 }}</td>
-              <td>{{ item.name }}</td>
-              <td class="text-xs-right">{{ item.salary }}</td>
-              <td class="text-xs-right">{{ item.country }}</td>
-              <td class="text-xs-right">{{ item.city }}</td>
+              <td>{{ item.client.name }}</td>
+              <td>{{ item.rentalDate | formatDate}}</td>
+              <td>{{ item.rentalDue | formatDate}}</td>
+              <td >R$ {{ item.value }}</td>
             </template>
           </v-data-table>
         </material-card>
@@ -193,166 +189,35 @@
         md12
         lg6
       >
-        <material-card
-          class="card-tabs"
-          color="green">
-          <v-flex
-            slot="header"
+      <material-card
+          color="green"
+          title="Recents"
+          text="carros alugados à 7 dias atrás"
+        >
+          <v-data-table
+            :headers="headers"
+            :items="recents"
+            hide-actions
           >
-            <v-tabs
-              v-model="tabs"
-              color="transparent"
-              slider-color="white"
+            <template
+              slot="headerCell"
+              slot-scope="{ header }"
             >
               <span
-                class="subheading font-weight-light mr-3"
-                style="align-self: center"
-              >Tasks:</span>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-bug</v-icon>
-                Bugs
-              </v-tab>
-              <v-tab class="mr-3">
-                <v-icon class="mr-2">mdi-code-tags</v-icon>
-                Website
-              </v-tab>
-              <v-tab>
-                <v-icon class="mr-2">mdi-cloud</v-icon>
-                Server
-              </v-tab>
-            </v-tabs>
-          </v-flex>
-
-          <v-tabs-items v-model="tabs">
-            <v-tab-item
-              v-for="n in 3"
-              :key="n"
+                class="font-weight-light text-sucess text--darken-3"
+                v-text="header.text"
+              />
+            </template>
+            <template
+              slot="items"
+              slot-scope="{ index, item }"
             >
-              <v-list three-line>
-                <v-list-tile @click="complete(0)">
-                  <v-list-tile-action>
-                    <v-checkbox
-                      :value="list[0]"
-                      color="green"
-                    />
-                  </v-list-tile-action>
-                  <v-list-tile-title>
-                    Sign contract for "What are conference organized afraid of?"
-                  </v-list-tile-title>
-                  <div class="d-flex">
-                    <v-tooltip
-                      top
-                      content-class="top">
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="success"
-                        icon
-                      >
-                        <v-icon color="primary">mdi-pencil</v-icon>
-                      </v-btn>
-                      <span>Edit</span>
-                    </v-tooltip>
-                    <v-tooltip
-                      top
-                      content-class="top">
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="danger"
-                        icon
-                      >
-                        <v-icon color="error">mdi-close</v-icon>
-                      </v-btn>
-                      <span>Close</span>
-                    </v-tooltip>
-
-                  </div>
-                </v-list-tile>
-                <v-divider/>
-                <v-list-tile @click="complete(1)">
-                  <v-list-tile-action>
-                    <v-checkbox
-                      :value="list[1]"
-                      color="success"
-                    />
-                  </v-list-tile-action>
-                  <v-list-tile-title>
-                    Lines From Great Russian Literature? Or E-mails From My Boss?
-                  </v-list-tile-title>
-                  <div class="d-flex">
-                    <v-tooltip
-                      top
-                      content-class="top">
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="success"
-                        icon
-                      >
-                        <v-icon color="primary">mdi-pencil</v-icon>
-                      </v-btn>
-                      <span>Edit</span>
-                    </v-tooltip>
-
-                    <v-tooltip
-                      top
-                      content-class="top">
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="danger"
-                        icon>
-                        <v-icon color="error">mdi-close</v-icon>
-                      </v-btn>
-                      <span>Close</span>
-                    </v-tooltip>
-                  </div>
-                </v-list-tile>
-                <v-divider/>
-                <v-list-tile @click="complete(2)">
-                  <v-list-tile-action>
-                    <v-checkbox
-                      :value="list[2]"
-                      color="success"
-                    />
-                  </v-list-tile-action>
-                  <v-list-tile-title>
-                    Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                  </v-list-tile-title>
-                  <div class="d-flex">
-                    <v-tooltip
-                      top
-                      content-class="top">
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="success"
-                        icon
-                      >
-                        <v-icon color="primary">mdi-pencil</v-icon>
-                      </v-btn>
-                      <span>Edit</span>
-                    </v-tooltip>
-                    <v-tooltip
-                      top
-                      content-class="top">
-                      <v-btn
-                        slot="activator"
-                        class="v-btn--simple"
-                        color="danger"
-                        icon
-                      >
-                        <v-icon color="error">mdi-close</v-icon>
-                      </v-btn>
-                      <span>Close</span>
-                    </v-tooltip>
-
-                  </div>
-                </v-list-tile>
-              </v-list>
-            </v-tab-item>
-          </v-tabs-items>
+              <td>{{ item.client.name }}</td>
+              <td>{{ item.rentalDate | formatDate}}</td>
+              <td>{{ item.rentalDue | formatDate}}</td>
+              <td >R$ {{ item.value }}</td>
+            </template>
+          </v-data-table>
         </material-card>
       </v-flex>
     </v-layout>
@@ -360,6 +225,8 @@
 </template>
 
 <script>
+import send from "../utils/request.js";
+import moment from "moment";
 export default {
   data () {
     return {
@@ -438,64 +305,29 @@ export default {
         ]
       },
       headers: [
-        {
-          sortable: false,
-          text: 'ID',
-          value: 'id'
-        },
-        {
-          sortable: false,
-          text: 'Name',
-          value: 'name'
-        },
-        {
-          sortable: false,
-          text: 'Salary',
-          value: 'salary',
-          align: 'right'
-        },
-        {
-          sortable: false,
-          text: 'Country',
-          value: 'country',
-          align: 'right'
-        },
-        {
-          sortable: false,
-          text: 'City',
-          value: 'city',
-          align: 'right'
-        }
-      ],
-      items: [
-        {
-          name: 'Dakota Rice',
-          country: 'Niger',
-          city: 'Oud-Tunrhout',
-          salary: '$35,738'
-        },
-        {
-          name: 'Minerva Hooper',
-          country: 'Curaçao',
-          city: 'Sinaai-Waas',
-          salary: '$23,738'
-        }, {
-          name: 'Sage Rodriguez',
-          country: 'Netherlands',
-          city: 'Overland Park',
-          salary: '$56,142'
-        }, {
-          name: 'Philip Chanley',
-          country: 'Korea, South',
-          city: 'Gloucester',
-          salary: '$38,735'
-        }, {
-          name: 'Doris Greene',
-          country: 'Malawi',
-          city: 'Feldkirchen in Kārnten',
-          salary: '$63,542'
-        }
-      ],
+      {
+        sortable: true,
+        text: 'Nome do cliente',
+        value: 'name'
+      },
+      {
+        sortable: true,
+        text: 'De',
+        value: 'rentalDate'
+      },
+      {
+        sortable: true,
+        text: 'Até',
+        value: 'rentalDue'
+      },
+      {
+        sortable: true,
+        text: 'Valor',
+        value: 'value'
+      }
+    ],
+      recents: [],
+      devolutions: [],
       tabs: 0,
       list: {
         0: false,
@@ -504,10 +336,42 @@ export default {
       }
     }
   },
+  created() {
+    this.getDevolutions(0)
+    this.getRecents(0)
+  },
+  filters: {
+    formatDate: function(value) {
+      if (!value) return ""
+      return moment(String(value)).format("DD/MM/YYYY HH:ss")
+    }
+  },
   methods: {
     complete (index) {
       this.list[index] = !this.list[index]
-    }
+    },
+    getDevolutions(page) {
+      send
+        .request("get", "rents/devolutions?"+"page="+ page)
+        .then(response => {
+          
+          this.devolutions = response.data.content;
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
+     getRecents(page) {
+      send
+        .request("get", "rents/recents?"+"page="+ page)
+        .then(response => {
+          
+          this.recents = response.data.content;
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
   }
 }
 </script>

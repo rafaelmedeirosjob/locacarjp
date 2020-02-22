@@ -99,7 +99,7 @@
               :color="color"
               :top="true"
               :right="true"
-              timeout= 3000
+              :timeout="3000"
               v-model="snackbar"
               dark
             >
@@ -170,7 +170,7 @@ export default {
     }
   },
   methods: {
-    snack (cor,msg) {
+    snack(cor,msg) {
 
       this.color = cor
       this.msg = msg
@@ -209,11 +209,12 @@ export default {
               path: "/alugueis"
             });
             this.getReserves(0)
-            snack("green",response.data)
+            console.log(response.data)
+            this.snack("green",response.data)
           console.log(response.data)
         })
         .catch(error => {
-          snack("red",response.data)
+          this.snack("red",response.data)
           console.log(error)
         });
     },
@@ -225,11 +226,11 @@ export default {
               path: "/alugueis"
             });
             this.getItens(0)
-            snack("green",response.data)
+            this.snack("green",response.data)
           console.log(response.data)
         })
         .catch(error => {
-          snack("red",response.data)
+          this.snack("red",response.data)
           console.log(error)
         });
     }

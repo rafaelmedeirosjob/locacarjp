@@ -69,6 +69,24 @@ public class RentController {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:8081")
+	@GetMapping("devolutions")
+	public ResponseEntity<Page<RentDto>> devolutions(@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+		LocalDateTime now = LocalDateTime.now(); 
+		LocalDateTime future = now.plusDays(7);
+		Page<Rent> rents = rentRepository.findByRentalDueBetweenAndIsCanceledFalse(now, future,paginacao);
+			return ResponseEntity.ok().body(RentDto.converter(rents));
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
+	@GetMapping("recents")
+	public ResponseEntity<Page<RentDto>> recents(@PageableDefault(sort = "id", direction = Direction.DESC, page = 0, size = 10) Pageable paginacao) {
+		LocalDateTime now = LocalDateTime.now(); 
+		LocalDateTime ago = now.minusDays(7);
+		Page<Rent> rents = rentRepository.findByCreatedAtBetweenAndIsCanceledFalse(ago, now, paginacao);
+			return ResponseEntity.ok().body(RentDto.converter(rents));
+	}
+	
+	@CrossOrigin(origins = "http://localhost:8081")
 	@PostMapping
 	@Transactional
 	public ResponseEntity<RentDto> create(@RequestBody @Valid CreateRentRequest request, UriComponentsBuilder uriBuilder) {
@@ -84,6 +102,7 @@ public class RentController {
 		Car car = new Car(request.getModel(), request.getVehiclePlate(),Double.parseDouble(request.getKm()),type);
 		carRepository.save(car);
 		Rent rent = new Rent(dateRent,dateDue,Double.parseDouble(request.getValue()),client,car);
+		rent.setCreatedAt(LocalDateTime.now());
 		rentRepository.save(rent);
 		URI uri = uriBuilder.path("/rents/{id}").buildAndExpand(rent.getId()).toUri();
 		return ResponseEntity.created(uri).body(new RentDto(rent));

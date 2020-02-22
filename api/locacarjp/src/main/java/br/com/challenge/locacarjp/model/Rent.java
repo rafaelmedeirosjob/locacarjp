@@ -24,6 +24,7 @@ public class Rent {
 	private Long id;
 	private LocalDateTime rentalDate;
 	private LocalDateTime rentalDue;
+	private LocalDateTime createdAt;
 	private LocalDateTime returnDate = null;
 	private double value;
 	private boolean isCanceled = false;

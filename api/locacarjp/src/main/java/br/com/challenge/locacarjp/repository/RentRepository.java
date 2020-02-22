@@ -11,4 +11,6 @@ import br.com.challenge.locacarjp.model.Rent;
 public interface RentRepository  extends JpaRepository<Rent, Long>{
 	Page<Rent> findByRentalDateBeforeAndIsCanceledFalseAndReturnDateIsNull(LocalDateTime local, Pageable page);
 	Page<Rent> findByRentalDateAfterAndIsCanceledFalse(LocalDateTime local, Pageable page);
+	Page<Rent> findByRentalDueBetweenAndIsCanceledFalse(LocalDateTime present, LocalDateTime future, Pageable page);
+	Page<Rent> findByCreatedAtBetweenAndIsCanceledFalse(LocalDateTime ago, LocalDateTime present, Pageable page);
 }
