@@ -99,6 +99,7 @@
               :color="color"
               :top="true"
               :right="true"
+              timeout= 3000
               v-model="snackbar"
               dark
             >
@@ -152,6 +153,7 @@ export default {
         align: 'right'
       }
     ],
+    color: "",
     msg: '',
     snackbar: false,
     rents: [],
@@ -168,13 +170,10 @@ export default {
     }
   },
   methods: {
-    snack (...args) {
+    snack (cor,msg) {
 
-      for (const loc of args) {
-        this[loc] = true
-      }
-
-      this.color = this.colors[Math.floor(Math.random() * this.colors.length)]
+      this.color = cor
+      this.msg = msg
 
       this.snackbar = true
     },
@@ -210,9 +209,11 @@ export default {
               path: "/alugueis"
             });
             this.getReserves(0)
+            snack("green",response.data)
           console.log(response.data)
         })
         .catch(error => {
+          snack("red",response.data)
           console.log(error)
         });
     },
@@ -224,9 +225,11 @@ export default {
               path: "/alugueis"
             });
             this.getItens(0)
+            snack("green",response.data)
           console.log(response.data)
         })
         .catch(error => {
+          snack("red",response.data)
           console.log(error)
         });
     }
