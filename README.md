@@ -1,2 +1,0 @@
-# locacarjp
- vehicle rental application
