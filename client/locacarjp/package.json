@@ -31,7 +31,7 @@
     "@vue/cli-plugin-eslint": "3.0.1",
     "@vue/cli-service": "3.0.1",
     "@vue/eslint-config-standard": "3.0.1",
-    "axios": "0.19.0",
+    "axios": "0.21.1",
     "material-design-icons-iconfont": "3.0.3",
     "vue-analytics": "5.8.0",
     "vue-i18n": "7.4.0",
